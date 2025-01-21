@@ -2,7 +2,9 @@ package work.lclpnet.mdsi;
 
 import net.fabricmc.api.ModInitializer;
 
+import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.fabricmc.loader.api.FabricLoader;
+import net.minecraft.SharedConstants;
 import net.minecraft.util.Identifier;
 import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.NotNull;
@@ -26,7 +28,14 @@ public class MCDSIModInit implements ModInitializer {
 		var manager = loadConfig();
 		_configManager = manager;
 
-		new MCDSINetworking(LOGGER).init();
+		var networking = new MCDSINetworking(LOGGER);
+
+		networking.init();
+
+		var sender = DebugSenderImpl.get();
+		sender.bind(manager, networking);
+
+		manager.onChanged(sender::onConfigChanged);
 
 		LOGGER.info("Initialized.");
 	}

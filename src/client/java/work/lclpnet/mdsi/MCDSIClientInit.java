@@ -2,10 +2,10 @@ package work.lclpnet.mdsi;
 
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientLifecycleEvents;
-import work.lclpnet.kibu.config.ConfigAccess;
+import net.fabricmc.fabric.api.client.networking.v1.ClientPlayConnectionEvents;
 import work.lclpnet.kibu.config.ConfigManager;
-import work.lclpnet.mdsi.config.DebugConfig;
 import work.lclpnet.mdsi.network.MCDSIClientNetworking;
+import work.lclpnet.mdsi.type.MCDSIDebugRenderer;
 
 public class MCDSIClientInit implements ClientModInitializer {
 
@@ -20,6 +20,15 @@ public class MCDSIClientInit implements ClientModInitializer {
 		var handler = new DebugClientHandler(configAccess, networking);
 		DebugClientHandler.bind(handler);
 
-		ClientLifecycleEvents.CLIENT_STOPPING.register(client -> MCDSIModInit.configManager().ifPresent(ConfigManager::close));
+		DebugSenderImpl.get().setOnConfigChanged(handler::updateDataConfig);
+
+		ClientLifecycleEvents.CLIENT_STARTED.register(client ->
+				((MCDSIDebugRenderer) client.debugRenderer).mcdsi$setConfig(configAccess.config()));
+
+		ClientLifecycleEvents.CLIENT_STOPPING.register(client ->
+				MCDSIModInit.configManager().ifPresent(ConfigManager::close));
+
+		ClientPlayConnectionEvents.JOIN.register((playNetworkHandler, sender, client) ->
+				handler.updateDataConfig());
 	}
 }

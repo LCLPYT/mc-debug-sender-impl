@@ -42,6 +42,7 @@
 		"fabric-api": "*",
 		"kibu-networking-api": "*",
 		"kibu-config-api": "*",
+		"kibu-hooks": "*",
 		"cloth-config": "*"
 	},
 	"suggests": {}

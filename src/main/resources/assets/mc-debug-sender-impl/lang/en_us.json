@@ -1,5 +1,7 @@
 {
   "mc-debug-sender-impl.config.title": "Debug Sender Settings",
+  "mc-debug-sender-impl.config.title.general": "General",
+  "mc-debug-sender-impl.config.title.general.debugEnabled": "Enable debugging",
   "mc-debug-sender-impl.config.title.renderers": "Renderers",
   "mc-debug-sender-impl.config.title.renderers.pathFinding": "Pathfinding"
 }

@@ -28,6 +28,11 @@ public class DebugClientHandler {
 
     public void update() {
         configAccess.save();
+        updateDataConfig();
+    }
+
+    public void updateDataConfig() {
+        networking.sendDataConfig(config);
     }
 
     static void bind(DebugClientHandler handler) {

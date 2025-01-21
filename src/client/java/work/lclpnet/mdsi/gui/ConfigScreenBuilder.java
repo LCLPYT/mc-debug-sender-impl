@@ -29,6 +29,15 @@ public class ConfigScreenBuilder implements ConfigScreenFactory<Screen> {
         DebugConfig config = handler.config();
         DebugConfig defaultConfig = new DebugConfig();
 
+        String keyGeneral = TITLE + ".general";
+        ConfigCategory general = builder.getOrCreateCategory(translatable(keyGeneral));
+
+        general.addEntry(builder.entryBuilder()
+                .startBooleanToggle(translatable(keyGeneral + ".debugEnabled"), config.isDebugEnabled())
+                .setDefaultValue(defaultConfig.isDebugEnabled())
+                .setSaveConsumer(config::setDebugEnabled)
+                .build());
+
         String keyRenderers = TITLE + ".renderers";
         ConfigCategory renderers = builder.getOrCreateCategory(translatable(keyRenderers));
 

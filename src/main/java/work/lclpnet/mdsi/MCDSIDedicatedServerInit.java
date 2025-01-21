@@ -8,6 +8,7 @@ public class MCDSIDedicatedServerInit implements DedicatedServerModInitializer {
 
     @Override
     public void onInitializeServer() {
-        ServerLifecycleEvents.SERVER_STOPPING.register(client -> MCDSIModInit.configManager().ifPresent(ConfigManager::close));
+        ServerLifecycleEvents.SERVER_STOPPING.register(client ->
+                MCDSIModInit.configManager().ifPresent(ConfigManager::close));
     }
 }
