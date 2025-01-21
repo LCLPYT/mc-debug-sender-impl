@@ -5,6 +5,7 @@ import net.fabricmc.api.ModInitializer;
 import net.minecraft.util.Identifier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import work.lclpnet.mdsi.network.MCDSINetworking;
 
 public class MCDSIModInit implements ModInitializer {
 
@@ -13,6 +14,8 @@ public class MCDSIModInit implements ModInitializer {
 
 	@Override
 	public void onInitialize() {
+		new MCDSINetworking(LOGGER).init();
+
 		LOGGER.info("Initialized.");
 	}
 
