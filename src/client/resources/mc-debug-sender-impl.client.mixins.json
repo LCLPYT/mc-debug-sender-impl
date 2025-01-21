@@ -1,11 +1,9 @@
 {
 	"required": true,
-	"package": "com.example.mixin",
+	"package": "work.lclpnet.mdsi.mixin.client",
 	"compatibilityLevel": "JAVA_21",
-	"mixins": [
-		"ExampleMixin"
-	],
 	"injectors": {
 		"defaultRequire": 1
-	}
+	},
+	"client": []
 }

@@ -89,8 +89,8 @@ publishing {
             from components.java
 
             pom {
-                name = 'Test Mod'
-                description = 'This is an example description! Tell everyone what your mod is about!'
+                name = 'mc-debug-sender-impl'
+                description = 'Implementation for some of the removed debug data senders of Minecraft: Java edition, as a Fabric mod'
             }
         }
     }
