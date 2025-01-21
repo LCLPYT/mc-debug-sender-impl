@@ -23,6 +23,9 @@
 		],
 		"server": [
 			"work.lclpnet.mdsi.MCDSIDedicatedServerInit"
+		],
+		"modmenu": [
+			"work.lclpnet.mdsi.MCDSIModMenu"
 		]
 	},
 	"mixins": [
@@ -38,7 +41,8 @@
 		"java": ">=21",
 		"fabric-api": "*",
 		"kibu-networking-api": "*",
-		"kibu-config-api": "*"
+		"kibu-config-api": "*",
+		"cloth-config": "*"
 	},
 	"suggests": {}
 }
