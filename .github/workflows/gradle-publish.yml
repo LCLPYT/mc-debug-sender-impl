@@ -17,14 +17,14 @@ jobs:
         with:
           java-version: '21'
           distribution: 'temurin'
-          cache: 'gradle'
 
       # validate gradle wrapper signature
       - uses: gradle/actions/wrapper-validation@v3
 
       # Gradle caching and more
-      - name: Setup Gradle
-        uses: gradle/actions/setup-gradle@v3
+      - uses: gradle/actions/setup-gradle@v3
+        with:
+          cache-read-only: '${{ github.event.repository != null && github.ref_name != github.event.repository.default_branch }}'
 
       # perform the gradle build
       - name: Execute Gradle Build
