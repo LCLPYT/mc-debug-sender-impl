@@ -11,7 +11,6 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import work.lclpnet.mdsi.DebugSenderImpl;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,8 +30,6 @@ public abstract class PathMixin {
             at = @At("HEAD")
     )
     public void mcdsi$setDebugData(PacketByteBuf buf, CallbackInfo ci) {
-        if (!DebugSenderImpl.get().config().isPathFinding()) return;
-
         List<PathNode> unvisited = new ArrayList<>(), visited = new ArrayList<>();
 
         for (PathNode node : nodes) {

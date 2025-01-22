@@ -35,12 +35,9 @@ public abstract class DebugInfoSenderMixin {
     @Unique
     private static void mcdsi$send(World world, Supplier<CustomPayload> payload) {
         var sender = DebugSenderImpl.get();
-
-        if (!sender.config().isDebugEnabled() || !(world instanceof ServerWorld serverWorld)) return;
-
         MCDSINetworking networking = sender.networking();
 
-        if (networking == null) return;
+        if (networking == null || !(world instanceof ServerWorld serverWorld)) return;
 
         networking.sendIf(serverWorld.getPlayers(), DebugDataConfig::isPathFinding, () -> new CustomPayloadS2CPacket(payload.get()));
     }
