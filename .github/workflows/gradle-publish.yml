@@ -13,6 +13,11 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Find git branch name
+        run: |
+          git_branch_name=$(git branch --contains refs/tags/${GITHUB_REF_NAME} | grep -v "detached" | head -n 1 | sed 's/^[* ] //')
+          echo "git_branch_name=$git_branch_name" >> $GITHUB_ENV
+
       - uses: actions/setup-java@v4
         with:
           java-version: '21'
@@ -24,7 +29,7 @@ jobs:
       # Gradle caching and more
       - uses: gradle/actions/setup-gradle@v3
         with:
-          cache-read-only: '${{ github.event.repository != null && github.ref_name != github.event.repository.default_branch }}'
+          cache-read-only: "${{ github.event.repository != null && env.git_branch_name != format('refs/heads/{0}', github.event.repository.default_branch) }}"
 
       # perform the gradle build
       - name: Execute Gradle Build
