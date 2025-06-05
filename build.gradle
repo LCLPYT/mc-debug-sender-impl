@@ -1,16 +1,16 @@
 import work.lclpnet.build.task.GithubDeploymentTask
 
 plugins {
-	id 'fabric-loom' version '1.9-SNAPSHOT'
+	id 'fabric-loom' version "${loom_version}"
 	id 'maven-publish'
 	id 'gradle-build-utils' version '1.7.0'
     id 'io.freefair.lombok' version '8.11'
 }
 
-Properties props = buildUtils.loadProperties('publish.properties')  // will be empty, if the file is missing
+Properties props = buildUtils.loadProperties('publish.properties')
 
-version = buildUtils.gitVersion()  // determine project version from the latest git tag on the current branch
 group = project.maven_group
+version = "${project.mod_version}+${project.minecraft_version}"
 
 base {
     archivesName = project.archives_base_name
@@ -101,7 +101,7 @@ tasks.register("github", GithubDeploymentTask) {
 
     release {
         title = "[$project.minecraft_version] $project.name $project.version"
-        tag = buildUtils.latestTag()
+        tag = project.version
     }
 
     assets.add(tasks.remapJar.archiveFile.get())
